@@ -21,7 +21,7 @@ See example-config.sh for another.
 
 ## install
 
-	git clone git@github.com:tompscanlan/docker-ssl-term.git'
+	git clone git@github.com:tompscanlan/docker-ssl-term.git
 	cd docker-ssl-term
 	./install.sh
 
