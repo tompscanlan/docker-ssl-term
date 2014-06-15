@@ -1,7 +1,23 @@
-docker-ssl-term
-===============
+# docker-ssl-term
 
-docker ssl termination
+Runs an nginx server that terminates ssl, and proxies traffic to a different host.
+Used to allow single public port to securly route to internal http hosts.
+
+## Examples
+At any time you can 
+
+	./install.sh
+	./start.sh 
+	 . ./common.sh
+	 add_server_confg "internal-wiki.example.com" "10.10.10.18:80" "443"
+	 add_server_confg "internal-bugs.example.com" "10.10.10.18:80" "443"
+	 add_server_confg "intranet.example.com" "10.10.10.20:80" "443"
+	 id=`cat ./running-id`
+	 docker kill --signal="HUP" $id
+
+See test.sh for a concrete example that you can run right off.
+
+See example-config.sh for another. 
 
 ## install
 
@@ -18,15 +34,6 @@ or
 
 	 ./stop.sh
 
-## Examples
-see test.sh for a concrete example. that you can run right off.
-
-See example-config.sh for another. Finally, at any time you can 
-
-	 . ./common.sh
-	 add_server_confg "slashdot.example.com" "slashdot.com:80" "443"
-	 id=`cat ./running-id`
-	 docker kill --signal="HUP" $id
 
 ## Debugging
 
