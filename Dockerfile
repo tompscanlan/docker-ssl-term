@@ -1,19 +1,7 @@
-
-# to build:
-# docker build -t nginx-ssl-terminator .
-#
-# to run with bash:
-#  docker run -i -t -entrypoint /bin/bash   -p 443:443 -p 80:80  -v `pwd`/sites-enabled:/etc/nginx/sites-enabled -v `pwd`/logs:/var/log/nginx  nginx-ssl-terminator
-#
-# to run server: 
-#
-# Pull base image.
-#FROM dockerfile/ubuntu
 FROM ubuntu
 MAINTAINER Tom Scanlan, tscanlan@momentumsi.com
 
 # Install Nginx.
-ENV LAST_UPDATED 2014-4-9
 RUN apt-get update
 RUN apt-get install -y software-properties-common python-software-properties
 RUN add-apt-repository -y ppa:nginx/stable
@@ -31,9 +19,10 @@ VOLUME /var/log/nginx
 WORKDIR /etc/nginx
 
 # Expose ports.
+# Add others you'd like to listen on for re-direction
 #EXPOSE 80
 EXPOSE 443
-EXPOSE 444
+#EXPOSE 444
 
 # Define default command.
 ENTRYPOINT ["nginx"]

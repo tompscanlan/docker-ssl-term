@@ -1,21 +1,26 @@
 #!/bin/bash
 . ./common.sh
 
-sudo sed -i '$ a\127.0.0.1 google.momentumsi.com' /etc/hosts
-sudo sed -i '$ a\127.0.0.1 slashdot.momentumsi.com' /etc/hosts
+./install.sh
+./start.sh
 
-add_server_confg "slashdot.momentumsi.com" "slashdot.com:80" "443"
-add_server_confg "google.momentumsi.com" "google.com:80" "443"
+sudo sed -i '$ a\127.0.0.1 google.example.com' /etc/hosts
+sudo sed -i '$ a\127.0.0.1 slashdot.example.com' /etc/hosts
+
+add_server_confg "slashdot.example.com" "slashdot.com:80" "443"
+add_server_confg "google.example.com" "google.com:80" "443"
 
 id=`cat ./running-id`
 docker kill --signal="HUP" $id
+sleep 2
 
-
-curl -k https://slashdot.momentumsi.com
-cat ./logs/slashdot.momentumsi.com/access.log
+curl -ik https://slashdot.example.com
+cat ./logs/slashdot.example.com/access.log
 echo ---------------
-curl -k https://google.momentumsi.com
-cat ./logs/google.momentumsi.com/access.log
+curl -ik https://google.example.com
+cat ./logs/google.example.com/access.log
 
-sudo sed -i '/127.0.0.1 google.momentumsi.com/d' /etc/hosts
-sudo sed -i '/127.0.0.1 slashdot.momentumsi.com/d' /etc/hosts
+sudo sed -i '/127.0.0.1 google.example.com/d' /etc/hosts
+sudo sed -i '/127.0.0.1 slashdot.example.com/d' /etc/hosts
+
+./stop.sh
